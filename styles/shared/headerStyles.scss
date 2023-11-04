@@ -13,3 +13,18 @@
   -webkit-box-shadow: 2px 4px 11px -6px rgba(0,0,0,0.52);
   -moz-box-shadow: 2px 4px 11px -6px rgba(0,0,0,0.52);
 }
+
+.menu-items {
+  flex: 1 !important; /* Take up remaining space */
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.logout {
+  border-top: 1px solid  rgb(115, 115, 115);
+  border-bottom: 1px solid rgb(115, 115, 115);
+  padding: 8px !important;
+  background-color: #001529 ;
+  color: white;
+  cursor: pointer;
+}

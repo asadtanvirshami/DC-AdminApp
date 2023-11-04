@@ -3,22 +3,26 @@ import Link from "next/link";
 import Image from "next/image";
 
 import Logo from "../../public/images/logo.png";
+import { useRouter } from "next/router";
 
 import {
   BarChartOutlined,
   MedicineBoxOutlined,
   ApartmentOutlined,
   TeamOutlined,
-  CustomerServiceOutlined,
 } from "@ant-design/icons";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { HiOutlineArrowRightOnRectangle } from "react-icons/hi2";
 
 import { Layout, Menu } from "antd";
+import Cookies from "js-cookie";
 
 const { Sider, Content } = Layout;
 
 const HeaderCom = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
+
+  const router = useRouter()
 
   const navLinks = [
     {
@@ -51,7 +55,12 @@ const HeaderCom = ({ children }) => {
     <>
       <Layout>
         <Sider
-          style={{ minHeight: "100vh" }}
+          style={{
+            minHeight: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
           collapsed={collapsed}
           onCollapse={(value) => setCollapsed(value)}
         >
@@ -81,7 +90,17 @@ const HeaderCom = ({ children }) => {
               </div>
             ))}
           </Menu>
+          <div onClick={()=>{
+            Cookies.remove("id")
+            Cookies.remove("token")
+            Cookies.remove("user")
+            router.push('/')
+          }} className="logout mt-5">
+            <HiOutlineArrowRightOnRectangle size={28} />
+            <span className="mx-2">Logout</span>
+          </div>
         </Sider>
+
         <Layout>
           <Content style={{ backgroundColor: "white", minHeight: "100vh" }}>
             {collapsed && (

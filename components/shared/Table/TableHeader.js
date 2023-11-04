@@ -1,6 +1,5 @@
 import React from "react";
 
-import { FunnelPlotOutlined } from "@ant-design/icons";
 import { HiSearch } from "react-icons/hi";
 
 const TableHeader = ({ length, title, setSearchTerm }) => {
