@@ -1,8 +1,12 @@
 import React from "react";
 
+import { Select } from 'antd';
 import { HiSearch } from "react-icons/hi";
 
 const TableHeader = ({ length, title, setSearchTerm }) => {
+  const handleChange = (value) => {
+    console.log(`selected ${value}`);
+  };
   return (
     <div className="header-container ">
       <div className="appointments-count">
@@ -18,6 +22,32 @@ const TableHeader = ({ length, title, setSearchTerm }) => {
           />
           <HiSearch class="search-icon" />
         </div>
+         <Select
+      defaultValue="lucy"
+      style={{
+        width: 120,
+      }}
+      onChange={handleChange}
+      options={[
+        {
+          value: 'jack',
+          label: 'Jack',
+        },
+        {
+          value: 'lucy',
+          label: 'Lucy',
+        },
+        {
+          value: 'Yiminghe',
+          label: 'yiminghe',
+        },
+        {
+          value: 'disabled',
+          label: 'Disabled',
+          disabled: true,
+        },
+      ]}
+    />
         {/* <div className="sort-container">
           <label >Sort By</label>
           <select>

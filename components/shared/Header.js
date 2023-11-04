@@ -22,7 +22,7 @@ const { Sider, Content } = Layout;
 const HeaderCom = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
 
-  const router = useRouter()
+  const router = useRouter();
 
   const navLinks = [
     {
@@ -90,14 +90,19 @@ const HeaderCom = ({ children }) => {
               </div>
             ))}
           </Menu>
-          <div onClick={()=>{
-            Cookies.remove("id")
-            Cookies.remove("token")
-            Cookies.remove("user")
-            router.push('/')
-          }} className="logout mt-5">
-            <HiOutlineArrowRightOnRectangle size={28} />
-            <span className="mx-2">Logout</span>
+          <div
+            onClick={() => {
+              Cookies.remove("id");
+              Cookies.remove("token");
+              Cookies.remove("user");
+              router.push("/");
+            }}
+            className="logout mt-5"
+          >
+            <HiOutlineArrowRightOnRectangle
+              size={collapsed ? 25 : 28}
+            />
+            {!collapsed && <span className="mx-2">Logout</span>}
           </div>
         </Sider>
 
