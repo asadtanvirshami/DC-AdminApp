@@ -3,7 +3,7 @@ import React from "react";
 import { FunnelPlotOutlined } from "@ant-design/icons";
 import { HiSearch } from "react-icons/hi";
 
-const TableHeader = ({length,title,setSearchTerm}) => {
+const TableHeader = ({ length, title, setSearchTerm }) => {
   return (
     <div className="header-container ">
       <div className="appointments-count">
@@ -12,7 +12,11 @@ const TableHeader = ({length,title,setSearchTerm}) => {
       </div>
       <div className="controls-container">
         <div className="search-container">
-          <input onChange={(e)=>setSearchTerm(e.target.value)} type="text" placeholder="Search by location" />
+          <input
+            onChange={(e) => setSearchTerm(e.target.value)}
+            type="text"
+            placeholder="Search"
+          />
           <HiSearch class="search-icon" />
         </div>
         {/* <div className="sort-container">
