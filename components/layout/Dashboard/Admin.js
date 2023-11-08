@@ -5,7 +5,7 @@ import Table from "../../shared/Table/Table";
 import Card from "../../shared/Card/Card";
 import BarChart from "@/components/shared/Charts/BarChart";
 
-const Doctor = ({ user, clients, doctors, clinics }) => {
+const Admin = ({ user, clients, doctors, clinics }) => {
   const [data, setData] = useState({
     clients: clients,
     doctors: doctors,
@@ -216,16 +216,17 @@ const Doctor = ({ user, clients, doctors, clinics }) => {
       <div className="row main-section">
         <div className="col-md-6">
           <Card
-            length={doctors.length}
+            length={clinics.length}
             pagination={false}
             viewTable={false}
-            title={"Doctors"}
+            title={"Data Chart"}
           >
-            <Table
-              loading={loading}
-              handleDelete={deleteDoctor}
-              onClick={verifyDoctor}
-              data={data.doctors}
+            <BarChart
+              title={"Data Chart"}
+              labels={chartData.labels}
+              data={chartData.data}
+              backgroundColor={chartData.backgroundColor}
+              borderColor={chartData.borderColor}
             />
           </Card>
         </div>
@@ -261,17 +262,16 @@ const Doctor = ({ user, clients, doctors, clinics }) => {
         </div>
         <div className="col-md-6 mt-5">
           <Card
-            length={clinics.length}
+            length={doctors.length}
             pagination={false}
             viewTable={false}
-            title={"Data Chart"}
+            title={"Doctors"}
           >
-            <BarChart
-              title={"Data Chart"}
-              labels={chartData.labels}
-              data={chartData.data}
-              backgroundColor={chartData.backgroundColor}
-              borderColor={chartData.borderColor}
+            <Table
+              loading={loading}
+              handleDelete={deleteDoctor}
+              onClick={verifyDoctor}
+              data={data.doctors}
             />
           </Card>
         </div>
@@ -342,4 +342,4 @@ const Doctor = ({ user, clients, doctors, clinics }) => {
   );
 };
 
-export default memo(Doctor);
+export default memo(Admin);

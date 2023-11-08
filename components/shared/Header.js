@@ -10,6 +10,7 @@ import {
   MedicineBoxOutlined,
   ApartmentOutlined,
   TeamOutlined,
+  SettingOutlined
 } from "@ant-design/icons";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { HiOutlineArrowRightOnRectangle } from "react-icons/hi2";
@@ -43,6 +44,12 @@ const HeaderCom = ({ children }) => {
       href: "/clinics",
       label: "Clinics",
       icon: <ApartmentOutlined />,
+    },
+    {
+      key: "5",
+      href: "/settings",
+      label: "Settings",
+      icon: <SettingOutlined />,
     },
     // {
     //   key: "5",

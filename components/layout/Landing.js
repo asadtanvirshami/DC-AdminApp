@@ -5,7 +5,7 @@ import Loader from '../shared/Loader';
 
 import { delay } from '@/functions/delay';
 
-const HomeTemp = () => {
+const Landing = () => {
   
     const makeRoute = async() => {
      
@@ -22,4 +22,4 @@ const HomeTemp = () => {
   )
 }
 
-export default HomeTemp
+export default memo(Landing)

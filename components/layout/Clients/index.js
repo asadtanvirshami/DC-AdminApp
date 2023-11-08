@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import axios from "axios";
 
 import TableCom from "@/components/shared/Table/Table";
 import TableFooter from "@/components/shared/Table/TableFooter";
 import TableHeader from "@/components/shared/Table/TableHeader";
 
-const index = () => {
+const Clients = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const pageSize = 10;
@@ -112,4 +112,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default memo(Clients);
