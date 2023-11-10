@@ -96,6 +96,7 @@ const Clients = () => {
       />
       <TableCom
         loading={loading}
+        pageName={"client"}
         data={searchTerm.length > 2 ? searchedData : data}
         handleDelete={deleteClient}
         onClick={verifyClient}

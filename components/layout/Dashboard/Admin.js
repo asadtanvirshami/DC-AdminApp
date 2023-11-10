@@ -1,5 +1,6 @@
 import React, { memo, useState, useEffect } from "react";
 import moment from "moment";
+import axios from "axios";
 
 import Table from "../../shared/Table/Table";
 import Card from "../../shared/Card/Card";
@@ -60,6 +61,7 @@ const Admin = ({ user, clients, doctors, clinics }) => {
   }, []);
 
   const deleteDoctor = (id) => {
+    console.log(id)
     axios
       .delete(process.env.NEXT_PUBLIC_DELETE_DOCTORS, { headers: { id: id } })
       .then((r) => {
@@ -85,7 +87,7 @@ const Admin = ({ user, clients, doctors, clinics }) => {
 
   const deleteClient = (id) => {
     axios
-      .delete(process.env.NEXT_PUBLIC_DELETE_DOCTORS, { headers: { id: id } })
+      .delete(process.env.NEXT_PUBLIC_DELETE_CLIENTS, { headers: { id: id } })
       .then((r) => {
         const newData = data.clients?.filter((item) => item.id !== id);
         setData((prevData) => ({
@@ -238,6 +240,7 @@ const Admin = ({ user, clients, doctors, clinics }) => {
             title={"Users"}
           >
             <Table
+              pageName={"client"}
               loading={loading}
               handleDelete={deleteClient}
               onClick={verifyClient}
@@ -253,6 +256,7 @@ const Admin = ({ user, clients, doctors, clinics }) => {
             title={"Clinics"}
           >
             <Table
+              pageName={"clinic"}
               loading={loading}
               handleDelete={deleteClinic}
               onClick={null}
@@ -268,6 +272,7 @@ const Admin = ({ user, clients, doctors, clinics }) => {
             title={"Doctors"}
           >
             <Table
+              pageName={"doctor"}
               loading={loading}
               handleDelete={deleteDoctor}
               onClick={verifyDoctor}
@@ -284,8 +289,9 @@ const Admin = ({ user, clients, doctors, clinics }) => {
             title={"Approved"}
           >
             <Table
+              pageName={"doctor"}
               loading={loading}
-              handleDelete={deleteClinic}
+              handleDelete={deleteDoctor}
               onClick={null}
               data={data.approved.doctors}
             />
@@ -299,8 +305,9 @@ const Admin = ({ user, clients, doctors, clinics }) => {
             title={"Unapproved"}
           >
             <Table
+              pageName={"doctor"}
               loading={loading}
-              handleDelete={deleteClinic}
+              handleDelete={deleteDoctor}
               onClick={null}
               data={data.unapproved.doctors}
             />
@@ -315,8 +322,9 @@ const Admin = ({ user, clients, doctors, clinics }) => {
             title={"Approved"}
           >
             <Table
+              pageName={"client"}
               loading={loading}
-              handleDelete={deleteClinic}
+              handleDelete={deleteClient}
               onClick={null}
               data={data.approved.clients}
             />
@@ -330,8 +338,9 @@ const Admin = ({ user, clients, doctors, clinics }) => {
             title={"Unapproved"}
           >
             <Table
+              pageName={"client"}
               loading={loading}
-              handleDelete={deleteClinic}
+              handleDelete={deleteClient}
               onClick={null}
               data={data.unapproved.clients}
             />

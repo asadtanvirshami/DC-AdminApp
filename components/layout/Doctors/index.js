@@ -97,6 +97,7 @@ const Doctors = () => {
         loading={loading}
         handleDelete={deleteDoctor}
         onClick={verifyDoctor}
+        pageName={'doctor'}
         data={searchTerm.length > 2 ? searchedData : data}
       />
       <TableFooter

@@ -30,7 +30,6 @@ const Login = () => {
       .then((r) => {
         if (r.data.status == "success") {
           setLoading(false);
-          console.log(r.data);
           let token = jwt_decode(r.data.token);
           Cookies.set("token", r.data.token, { expires: 1 });
           Cookies.set("user", JSON.stringify(r.data.payload), { expires: 1 });

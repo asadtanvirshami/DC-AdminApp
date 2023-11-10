@@ -74,6 +74,7 @@ const Clinic = () => {
       />
       <TableCom
         loading={loading}
+        pageName={'clinic'}
         handleDelete={deleteClinic}
         data={searchTerm.length > 2 ? searchedData : data}
       />

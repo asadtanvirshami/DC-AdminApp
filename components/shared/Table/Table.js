@@ -4,8 +4,9 @@ import PrimaryModal from "../Modal";
 import { Spinner } from "react-bootstrap";
 import { Button } from "antd";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
-const TableCom = ({ data, handleDelete, onClick, loading }) => {
+const TableCom = ({ data, handleDelete, onClick, loading, pageName }) => {
   const [state, setState] = useState({ value: "", open: false });
   const router = useRouter();
 
@@ -68,7 +69,20 @@ const TableCom = ({ data, handleDelete, onClick, loading }) => {
                               >{`View ${key}`}</button>
                             </td>
                           ) : (
-                            <td>{ele[key]}</td>
+                            <td>
+                              <Link
+                                href={
+                                  (pageName === "doctor" &&
+                                    `/doctor/${ele["id"]}`) ||
+                                  (pageName === "clinic" &&
+                                    `/clinic/${ele["id"]}`) ||
+                                  (pageName === "client" &&
+                                    `/client/${ele["id"]}`)
+                                }
+                              >
+                                {ele[key]}
+                              </Link>
+                            </td>
                           )}
                         </>
                       );
