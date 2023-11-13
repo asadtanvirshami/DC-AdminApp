@@ -52,7 +52,7 @@ const Login = () => {
         <div className="text-center">
           <Image src={VectorArt} width={110} height={110} />
         </div>
-        <h2 className="mt-4">Admininstrator</h2>
+        <h2 className="mt-4">Administrator</h2>
         <input
           type="text"
           placeholder="Username"

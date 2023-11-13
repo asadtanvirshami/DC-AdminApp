@@ -4,7 +4,7 @@ import React from "react";
 import Profile from "@/components/layout/Doctors/Profile";
 
 const clientDetails = ({ data }) => {
-
+    console.log(data)
   if (!data) {
     return <p>Loading...</p>;
   }
@@ -24,7 +24,7 @@ export async function getServerSideProps({ params }) {
       `${process.env.NEXT_PUBLIC_GET_CLIENT_BY_ID}${params.id}`
     );
     const data = await response.json();
-
+        console.log(data)
     return {
       props: { data },
     };
