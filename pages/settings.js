@@ -15,7 +15,7 @@ const settings = ({sessionData}) => {
 
   return (
     <React.Fragment>
-      <Settings/>
+      <Settings sessionData={sessionData}/>
     </React.Fragment>
   )
 }

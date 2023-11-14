@@ -2,17 +2,24 @@ import React, { useState } from "react";
 
 import { Col, Row } from "react-bootstrap";
 import PrimaryModal from "@/components/shared/Modal";
+import { Avatar } from "antd";
 
 const Profile = ({ data }) => {
   const [state, setState] = useState({ value: "", open: false });
   return (
     <>
-      <div className="border rounded shadow m-5 p-5">
-        <hr className="mt-3" />
+      <div className="profile-container border rounded shadow m-5 p-5">
         <h3>Doctor Details</h3>
+        <div className="mt-4 d-flex">
+          <Avatar size={35}>{data.firstName?.charAt(0).toUpperCase()}</Avatar>
+          <h5 className="mx-3 mt-1">
+            {data.firstName || "No first name"}{" "}
+            {data.lastName || "No last name"}
+          </h5>
+        </div>
         <hr className="mt-3" />
-        <Row className="m-auto p-auto">
-          <Col md={4}>
+        <Row className="m-auto justify-content-center  ">
+          <Col md={4} className="p-4 border rounded">
             <ul className="profile-details px-1 mt-3 ">
               <li className="d-flex">
                 <strong>First name:</strong>
@@ -52,7 +59,7 @@ const Profile = ({ data }) => {
               </li>
             </ul>
           </Col>
-          <Col md={4}>
+          <Col md={3} className="p-4 mx-4 border rounded">
             <ul className="profile-details px-1 mt-3 ">
               <li className="d-flex">
                 <strong>Address 01:</strong>
@@ -76,7 +83,7 @@ const Profile = ({ data }) => {
               </li>
             </ul>
           </Col>
-          <Col md={4}>
+          <Col md={4} className="p-4 border rounded">
             <ul className="profile-details px-1 mt-3 ">
               <li className="d-flex">
                 <strong>Approved:</strong>
@@ -105,10 +112,9 @@ const Profile = ({ data }) => {
             </ul>
           </Col>
         </Row>
-        <Row>
-          <Col md={6}>
-            <hr className="mt-3" />
-            <h3>Doctor Experiences</h3>
+        <Row className="m-5 justify-content-center  border rounded p-4">
+          <Col>
+            <h4>Doctor Experiences</h4>
             <hr className="mt-6" />
             {data.Experiences.length > 0 ? (
               <div>
@@ -141,9 +147,8 @@ const Profile = ({ data }) => {
               <p>No experiences to show</p>
             )}
           </Col>
-          <Col md={6}>
-            <hr className="mt-3" />
-            <h3>Doctor Educations</h3>
+          <Col>
+            <h4>Doctor Educations</h4>
             <hr className="mt-3" />
             {data.Education.length > 0 ? (
               <div>
@@ -173,10 +178,9 @@ const Profile = ({ data }) => {
             )}
           </Col>
         </Row>
-        <Row>
+        <Row className="m-5 justify-content-center  border rounded p-4">
           <Col md={6}>
-            <hr className="mt-3" />
-            <h3>Doctor Specializations</h3>
+            <h4>Doctor Specializations</h4>
             <hr className="mt-6" />
             {data.Specializations.length > 0 ? (
               <div>
@@ -202,8 +206,7 @@ const Profile = ({ data }) => {
             )}
           </Col>
           <Col md={6}>
-            <hr className="mt-3" />
-            <h3>Doctor Services</h3>
+            <h4>Doctor Services</h4>
             <hr className="mt-3" />
             {data.Services.length > 0 ? (
               <div>
@@ -229,11 +232,10 @@ const Profile = ({ data }) => {
             )}
           </Col>
         </Row>
-        <Row>
+        <Row className="m-5 justify-content-center  border rounded p-4">
           <Col md={6}>
+            <h4>Doctor Pricings</h4>
             <hr className="mt-3" />
-            <h3>Doctor Pricings</h3>
-            <hr className="mt-6" />
             {data.Pricings.length > 0 ? (
               <div>
                 {data.Pricings.map((ele, i) => {
@@ -258,8 +260,7 @@ const Profile = ({ data }) => {
             )}
           </Col>
           <Col md={6}>
-            <hr className="mt-3" />
-            <h3>Doctor Clinics</h3>
+            <h4>Doctor Clinics</h4>
             <hr className="mt-3" />
             {data.Clinics.length > 0 ? (
               <div>
