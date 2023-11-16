@@ -71,6 +71,7 @@ const TableCom = ({ data, handleDelete, onClick, loading, pageName }) => {
                           ) : (
                             <td>
                               <Link
+                                className="link-style"
                                 href={
                                   (pageName === "doctor" &&
                                     `/doctor/${ele["id"]}`) ||

@@ -20,7 +20,7 @@ const TableHeader = ({ length, title, setSearchTerm }) => {
             type="text"
             placeholder="Search"
           />
-          <HiSearch class="search-icon" />
+          <HiSearch className="search-icon" />
         </div>
         <Select
           defaultValue="Select name"

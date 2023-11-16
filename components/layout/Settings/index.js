@@ -1,6 +1,9 @@
 import React, { memo, useState, useEffect } from "react";
-import { useUser } from "../User/UserProvider";
 import axios from "axios";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+
+import { useUser } from "../User/UserProvider";
 
 import { Col, Row } from "react-bootstrap";
 import PrimaryModal from "@/components/shared/Modal";
@@ -8,8 +11,9 @@ import { Input } from "antd";
 
 const Settings = ({ sessionData }) => {
   const { user } = useUser();
-
   const [isClient, setIsClient] = useState(false);
+  
+  const router = useRouter()
 
   const [state, setState] = useState({
     open: false,
@@ -25,32 +29,66 @@ const Settings = ({ sessionData }) => {
   });
 
   useEffect(() => {
-    if (sessionData.isAuthorized) {
+    const { isAuthorized } = sessionData;
+    if (isAuthorized) {
       setIsClient(true);
+      setState((prevData) => ({
+        ...prevData,
+        name: user.name,
+        username: user.username,
+        password: user.password,
+      }));
     } else {
       router.push("/");
     }
-  }, []);
+  }, [sessionData]);
+
+  const handleReset = (value) => {
+    setState((prevData) => ({
+      ...prevData,
+      title: "Privacy & Security",
+      note: `Please enter new ${value}.`,
+      value,
+      open: true,
+    }));
+  };
 
   const handleSubmit = () => {
     axios
       .post(process.env.NEXT_PUBLIC_ADMIN_RESET, {
         id: user.loginId,
-        name: user.name,
-        username: user.username,
+        name: state.name,
+        username: state.username,
+        password:state.password||''
       })
-      .then((r) => {
-        console.log(r.data);
+      .then((res) => {
+        if(res.data.status === 'success'){
+          
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
       });
   };
-  console.log(state)
+
+  const onChange = (value, name) => {
+    setState((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   return (
     <>
-      {isClient ? (
+      {isClient && (
         <div className="settings-container border shadow rounded m-5 p-5">
           <h3>Settings </h3>
           <Row>
             <Col md={8} className="mt-3">
+              <div className="d-flex ">
+                <strong>ID:</strong>
+                <p className="mx-2">{user?.loginId}</p>
+              </div>
               <div className="d-flex ">
                 <strong>Name:</strong>
                 <p className="mx-2">{user?.name}</p>
@@ -60,43 +98,14 @@ const Settings = ({ sessionData }) => {
                 <p className="mx-2">{user?.username}</p>
               </div>
             </Col>
-            <Col md={4} className="mt-3">
+            <Col md={3} className="mt-3">
               <div className="">
                 <ul>
-                  <li
-                    onClick={() => {
-                      setState({
-                        title: "Privacy & Security",
-                        note: "Please enter new name.",
-                        value: "name",
-                        open: true,
-                      });
-                    }}
-                  >
-                    reset name
-                  </li>
-                  <li
-                    onClick={() => {
-                      setState({
-                        title: "Privacy & Security",
-                        note: "Please enter new username.",
-                        value: "username",
-                        open: true,
-                      });
-                    }}
-                  >
+                  <li onClick={() => handleReset("name")}>reset name</li>
+                  <li onClick={() => handleReset("username")}>
                     reset username
                   </li>
-                  <li
-                    onClick={() => {
-                      setState({
-                        title: "Privacy & Security",
-                        note: "Please enter new password.",
-                        value: "password",
-                        open: true,
-                      });
-                    }}
-                  >
+                  <li onClick={() => handleReset("password")}>
                     reset password
                   </li>
                 </ul>
@@ -104,8 +113,6 @@ const Settings = ({ sessionData }) => {
             </Col>
           </Row>
         </div>
-      ) : (
-        <></>
       )}
       <PrimaryModal
         open={state.open}
@@ -121,16 +128,14 @@ const Settings = ({ sessionData }) => {
           <div className="mt-2">
             <p>{state.note}</p>
             <Input
-            value={state.value}
-              onChange={(e) =>
-                setState((prevData) => ({
-                  ...prevData,
-                  [state.value]: e.target.value,
-                }))
-              }
+              value={state[state.value]}
+              name={state.value}
+              onChange={(e) => onChange(e.target.value, e.target.name)}
               size="md"
             />
-            <button className="btn-orange-light mt-3">Save</button>
+            <button className="btn-orange-light mt-3" onClick={handleSubmit}>
+              Save
+            </button>
           </div>
           <small></small>
         </div>

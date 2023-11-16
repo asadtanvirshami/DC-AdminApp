@@ -1,10 +1,9 @@
 // pages/doctor/[id].js
 import React from "react";
 
-import Profile from "@/components/layout/Doctors/Profile";
+import Profile from "@/components/layout/Clients/Profile";
 
-const clinicDetails = ({ data }) => {
-
+const clientDetails = ({ data }) => {
   if (!data) {
     return <p>Loading...</p>;
   }
@@ -16,15 +15,14 @@ const clinicDetails = ({ data }) => {
   );
 };
 
-export default clinicDetails;
+export default clientDetails;
 
 export async function getServerSideProps({ params }) {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_GET_CLINIC_BY_ID}${params.id}`
+      `${process.env.NEXT_PUBLIC_GET_CLIENT_BY_ID}${params.id}`
     );
     const data = await response.json();
-
     return {
       props: { data },
     };

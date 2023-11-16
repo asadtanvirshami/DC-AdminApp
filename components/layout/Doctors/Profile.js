@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 
 import { Col, Row } from "react-bootstrap";
 import PrimaryModal from "@/components/shared/Modal";
@@ -302,4 +302,4 @@ const Profile = ({ data }) => {
   );
 };
 
-export default Profile;
+export default memo(Profile);
