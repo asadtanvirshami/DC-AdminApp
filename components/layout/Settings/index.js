@@ -5,15 +5,15 @@ import { useRouter } from "next/router";
 
 import { useUser } from "../User/UserProvider";
 
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 import PrimaryModal from "@/components/shared/Modal";
 import { Input } from "antd";
 
 const Settings = ({ sessionData }) => {
   const { user } = useUser();
   const [isClient, setIsClient] = useState(false);
-  
-  const router = useRouter()
+
+  const router = useRouter();
 
   const [state, setState] = useState({
     open: false,
@@ -24,7 +24,7 @@ const Settings = ({ sessionData }) => {
     name: "",
     password: "",
     title: "",
-    note: "",
+    status: "",
     message: "",
   });
 
@@ -54,20 +54,35 @@ const Settings = ({ sessionData }) => {
   };
 
   const handleSubmit = () => {
+    setState((prevData) => ({
+      ...prevData,
+      loading: true,
+    }));
     axios
       .post(process.env.NEXT_PUBLIC_ADMIN_RESET, {
         id: user.loginId,
         name: state.name,
         username: state.username,
-        password:state.password||''
+        password: state.password || "",
       })
       .then((res) => {
-        if(res.data.status === 'success'){
-          
+        if (res.data.status === "success") {
+          setState((prevData) => ({
+            ...prevData,
+            loading: false,
+            message: "Credentials updated",
+            status: "success",
+          }));
         }
       })
       .catch((error) => {
         console.error("Error:", error);
+        setState((prevData) => ({
+          ...prevData,
+          loading: false,
+          message: "Credentials not updated",
+          status: "error",
+        }));
       });
   };
 
@@ -134,10 +149,16 @@ const Settings = ({ sessionData }) => {
               size="md"
             />
             <button className="btn-orange-light mt-3" onClick={handleSubmit}>
-              Save
+              {state.loading ? <Spinner size="sm" /> : "Save"}
             </button>
           </div>
-          <small></small>
+          <small
+            style={
+              state.status === "success" ? { color: "green" } : { color: "red" }
+            }
+          >
+            {state.status === "success" ? state.message : state.message}
+          </small>
         </div>
       </PrimaryModal>
     </>
