@@ -66,7 +66,9 @@ const Settings = ({ sessionData }) => {
         password: state.password || "",
       })
       .then((res) => {
+        console.log(res.data);
         if (res.data.status === "success") {
+          Cookies.set("user", JSON.stringify(res.data.payload), { expires: 1 });
           setState((prevData) => ({
             ...prevData,
             loading: false,
@@ -157,7 +159,7 @@ const Settings = ({ sessionData }) => {
               state.status === "success" ? { color: "green" } : { color: "red" }
             }
           >
-            {state.status === "success" ? state.message : state.message}
+            {state.status === "success" && state.message}
           </small>
         </div>
       </PrimaryModal>
