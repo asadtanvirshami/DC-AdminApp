@@ -22,7 +22,7 @@ const TableHeader = ({ length, title, setSearchTerm }) => {
           />
           <HiSearch className="search-icon" />
         </div>
-        <Select
+        {/* <Select
           defaultValue="Select name"
           style={{
             width: 120,
@@ -47,7 +47,7 @@ const TableHeader = ({ length, title, setSearchTerm }) => {
               disabled: true,
             },
           ]}
-        />
+        /> */}
         {/* <div className="sort-container">
           <label >Sort By</label>
           <select>
