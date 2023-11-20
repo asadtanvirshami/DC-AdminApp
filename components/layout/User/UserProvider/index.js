@@ -1,5 +1,6 @@
+"use client"
 import Cookies from "js-cookie";
-import { useContext, useState, createContext, useCallback,memo } from "react";
+import { useContext, useState, createContext, useCallback } from "react";
 
 const UserContext = createContext();
 
@@ -7,7 +8,7 @@ export function useUser() {
   return useContext(UserContext);
 }
 
- const UserProvider = memo(({ children }) => {
+export const UserProvider = ({ children }) => {
   const [userData, setUserData] = useState(() => {
     const userString = Cookies.get("user");
     if (userString) {
@@ -56,6 +57,6 @@ export function useUser() {
       {children}
     </UserContext.Provider>
   );
-});
+};
 
 export default UserProvider;
