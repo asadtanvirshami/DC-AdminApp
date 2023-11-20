@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import react,{ useContext, useState, createContext, useEffect, useCallback,memo } from "react";
+import { useContext, useState, createContext, useCallback,memo } from "react";
 
 const UserContext = createContext();
 
