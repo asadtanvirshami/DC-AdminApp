@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import Login from "@/components/layout/Auth/Login";
 import verifyToken from "@/apis/verifyToken";
 
-const auth = ({ sessionData }) => {
+const Auth = ({ sessionData }) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const auth = ({ sessionData }) => {
   );
 };
 
-export default auth;
+export default Auth;
 
 export async function getServerSideProps({ req, res }) {
   const sessionRequest = await verifyToken(Cookies, req, res);

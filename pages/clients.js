@@ -3,9 +3,9 @@ import Cookies from 'cookies';
 import { useRouter } from 'next/router';
 
 import verifyToken from '@/apis/verifyToken'
-import Clients from '../components/layout/Clients/index'
+import Client from '../components/layout/Clients/index'
 
-const clients = ({sessionData}) => {
+const Clients = ({sessionData}) => {
   const router = useRouter()
     useEffect(() => {
         if (!sessionData.isAuthorized) {
@@ -14,12 +14,12 @@ const clients = ({sessionData}) => {
       }, []);
   return (
     <React.Fragment>
-      <Clients/>
+      <Client/>
     </React.Fragment>
   )
 }
 
-export default clients
+export default Clients
 
 export async function getServerSideProps({ req, res }) {
     const sessionRequest = await verifyToken(Cookies, req, res);

@@ -2,10 +2,10 @@ import React,{useEffect} from 'react'
 import Cookies from 'cookies';
 import { useRouter } from 'next/router';
 
-import Doctors from '../components/layout/Doctors/index'
+import Doctor from '../components/layout/Doctors/index'
 import verifyToken from '@/apis/verifyToken'
 
-const doctors = ({sessionData}) => {
+const Doctors = ({sessionData}) => {
   const router = useRouter()
     useEffect(() => {
         if (!sessionData.isAuthorized) {
@@ -15,12 +15,12 @@ const doctors = ({sessionData}) => {
     
   return (
     <React.Fragment>
-      <Doctors/>
+      <Doctor/>
     </React.Fragment>
   )
 }
 
-export default doctors
+export default Doctors
 
 export async function getServerSideProps({ req, res }) {
     const sessionRequest = await verifyToken(Cookies, req, res);
