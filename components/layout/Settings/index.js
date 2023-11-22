@@ -5,9 +5,10 @@ import { useRouter } from "next/router";
 
 import { useUser } from "../User/UserProvider";
 
-import { Col, Row, Spinner } from "react-bootstrap";
+import { Input, Col, Row, Divider } from "antd";
+import { Spinner } from "react-bootstrap";
+import CardMD from "@/components/shared/Card/CardMd";
 import PrimaryModal from "@/components/shared/Modal";
-import { Input } from "antd";
 
 const Settings = ({ sessionData }) => {
   const { user } = useUser();
@@ -100,8 +101,8 @@ const Settings = ({ sessionData }) => {
       {isClient && (
         <div className="settings-container border shadow rounded m-5 p-5">
           <h3>Settings </h3>
-          <Row>
-            <Col md={8} className="mt-3">
+          <Row className="mt-3">
+            <Col flex={5}>
               <div className="d-flex ">
                 <strong>ID:</strong>
                 <p className="mx-2">{user?.loginId}</p>
@@ -115,7 +116,7 @@ const Settings = ({ sessionData }) => {
                 <p className="mx-2">{user?.username}</p>
               </div>
             </Col>
-            <Col md={3} className="mt-3">
+            <Col flex={1} className="">
               <div className="">
                 <ul>
                   <li onClick={() => handleReset("name")}>reset name</li>
@@ -128,12 +129,26 @@ const Settings = ({ sessionData }) => {
                 </ul>
               </div>
             </Col>
-            <hr/>
-            <Col md={8} className="mt-3">
-              <h3>Accessibility and Authorization</h3>
-              <div>
-
+            <Divider/>
+            <Col className="mt-3">
+              <div className="d-flex">
+                <h3 className="">Accessibility and Authorization</h3>
+                <button className="btn-orange-light mx-4">Add New</button>
               </div>
+              <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                <Col className="gutter-row" span={6}>
+                  <CardMD title={"Admin"} description={"Description"} />
+                </Col>
+                <Col className="gutter-row" span={6}>
+                  <CardMD title={"Admin"} description={"Description"} />
+                </Col>
+                <Col className="gutter-row" span={6}>
+                  <CardMD title={"Admin"} description={"Description"} />
+                </Col>
+                <Col className="gutter-row" span={6}>
+                  <CardMD title={"Admin"} description={"Description"} />
+                </Col>
+              </Row>
             </Col>
           </Row>
         </div>
