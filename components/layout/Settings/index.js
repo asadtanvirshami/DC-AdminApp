@@ -128,6 +128,13 @@ const Settings = ({ sessionData }) => {
                 </ul>
               </div>
             </Col>
+            <hr/>
+            <Col md={8} className="mt-3">
+              <h3>Accessibility and Authorization</h3>
+              <div>
+
+              </div>
+            </Col>
           </Row>
         </div>
       )}
