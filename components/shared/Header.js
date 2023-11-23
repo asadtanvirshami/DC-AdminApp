@@ -10,7 +10,7 @@ import {
   MedicineBoxOutlined,
   ApartmentOutlined,
   TeamOutlined,
-  SettingOutlined
+  SettingOutlined,
 } from "@ant-design/icons";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { HiOutlineArrowRightOnRectangle } from "react-icons/hi2";
@@ -25,39 +25,29 @@ const HeaderCom = ({ children }) => {
 
   const router = useRouter();
 
-  const navLinks = [
-    {
-      key: "1",
-      href: "/dashboard",
-      label: "Dashboard",
-      icon: <BarChartOutlined />,
-    },
-    {
-      key: "2",
-      href: "/doctors",
-      label: "Doctors",
-      icon: <MedicineBoxOutlined />,
-    },
-    { key: "3", href: "/clients", label: "Clients", icon: <TeamOutlined /> },
-    {
-      key: "4",
-      href: "/clinics",
-      label: "Clinics",
-      icon: <ApartmentOutlined />,
-    },
-    {
-      key: "5",
-      href: "/settings",
-      label: "Settings",
-      icon: <SettingOutlined />,
-    },
-    // {
-    //   key: "5",
-    //   href: "/support",
-    //   label: "Customer Support",
-    //   icon: <CustomerServiceOutlined />,
-    // },
+  function getItem(label, key, icon, href, children, type) {
+    return {
+      key,
+      icon,
+      children,
+      label,
+      type,
+      href,
+    };
+  }
+  const items = [
+    getItem("Dashboard", "1", <BarChartOutlined />, "/dashboard"),
+    getItem("Doctors", "2", <MedicineBoxOutlined />, "/doctors"),
+    getItem("Users", "3", <TeamOutlined />, "/clients"),
+    getItem("Clinics", "4", <ApartmentOutlined />, "/clinics"),
+    getItem("Settings", "sub1", <SettingOutlined />, "/settings", [
+      getItem("Add Admin 5", "5"),
+      getItem("Profile & Security", "6"),
+      getItem("Option 7", "7"),
+      getItem("Option 8", "8"),
+    ]),
   ];
+
   return (
     <>
       <Layout>
@@ -83,20 +73,20 @@ const HeaderCom = ({ children }) => {
               <hr style={{ color: "silver" }} />
             </div>
           )}
-          <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-            {navLinks.map((link, i) => (
-              <div key={i} className="m-2">
-                <Menu.Item icon={link.icon}>
-                  <Link
-                    style={{ textDecoration: "none", color: "white" }}
-                    href={link.href}
-                  >
-                    {link.label}
-                  </Link>
-                </Menu.Item>
-              </div>
-            ))}
-          </Menu>
+            <Link
+                style={{ textDecoration: "none", color: "white" }}
+                href={item.href}
+              >
+                <Menu
+                  defaultSelectedKeys={["1"]}
+                  defaultOpenKeys={["sub1"]}
+                  mode="inline"
+                  theme="dark"
+                  inlineCollapsed={collapsed}
+                  items={items}
+                />
+              </Link>
+           
           <div
             onClick={() => {
               Cookies.remove("id");
@@ -106,9 +96,7 @@ const HeaderCom = ({ children }) => {
             }}
             className="logout mt-5"
           >
-            <HiOutlineArrowRightOnRectangle
-              size={collapsed ? 25 : 28}
-            />
+            <HiOutlineArrowRightOnRectangle size={collapsed ? 25 : 28} />
             {!collapsed && <span className="mx-2">Logout</span>}
           </div>
         </Sider>

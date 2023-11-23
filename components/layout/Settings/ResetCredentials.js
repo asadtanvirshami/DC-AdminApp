@@ -1,4 +1,4 @@
-import React from "react";
+import React,{memo} from "react";
 
 import { Input } from "antd";
 import { Spinner } from "react-bootstrap";
@@ -30,4 +30,4 @@ const ResetCredentials = ({state, onChange, handleSubmit}) => {
   );
 };
 
-export default ResetCredentials;
+export default memo(ResetCredentials);

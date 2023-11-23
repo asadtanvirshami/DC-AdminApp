@@ -10,7 +10,7 @@ const CardMD = ({title, description, avatar}) => {
     <>
       <Card
         style={{
-          width: 300,
+          maxWidth: '100%',
           marginTop: 16,
         }}
       >

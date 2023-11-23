@@ -6,9 +6,9 @@ import { useRouter } from "next/router";
 import { useUser } from "../User/UserProvider";
 
 import { Col, Row, Divider } from "antd";
-import CardMD from "@/components/shared/Card/CardMd";
+
 import PrimaryModal from "@/components/shared/Modal";
-import ResetCredentials from "./resetCredentials";
+import ResetCredentials from "./ResetCredentials";
 
 const Settings = ({ sessionData }) => {
   const { user } = useUser();
@@ -97,7 +97,7 @@ const Settings = ({ sessionData }) => {
   };
 
   return (
-    <>
+    <React.Fragment>
       {isClient && (
         <div className="settings-container border shadow rounded m-5 p-5">
           <h3>Settings </h3>
@@ -130,26 +130,6 @@ const Settings = ({ sessionData }) => {
               </div>
             </Col>
             <Divider />
-            <Col className="mt-3">
-              <div className="d-flex">
-                <h3 className="">Accessibility and Authorization</h3>
-                <button className="btn-orange-light mx-4">Add New</button>
-              </div>
-              <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
-                <Col className="gutter-row" span={6}>
-                  <CardMD title={"Admin"} description={"Description"} />
-                </Col>
-                <Col className="gutter-row" span={6}>
-                  <CardMD title={"Admin"} description={"Description"} />
-                </Col>
-                <Col className="gutter-row" span={6}>
-                  <CardMD title={"Admin"} description={"Description"} />
-                </Col>
-                <Col className="gutter-row" span={6}>
-                  <CardMD title={"Admin"} description={"Description"} />
-                </Col>
-              </Row>
-            </Col>
           </Row>
         </div>
       )}
@@ -170,7 +150,7 @@ const Settings = ({ sessionData }) => {
           />
         </React.Fragment>
       </PrimaryModal>
-    </>
+    </React.Fragment>
   );
 };
 

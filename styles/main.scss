@@ -1,10 +1,12 @@
-@import "./layout/dashboard/doctorStyles.scss";
-@import "./layout/auth/authStyles.scss";
+//===Shared===//
 @import "./shared/cardStyles.scss";
 @import "./shared/headerStyles.scss";
 @import "./shared/chartStyles.scss";
 @import "./shared/tableStyles.scss";
 @import "./animations/fadeIn.scss";
+//===LAYOUT===//
+@import "./layout/dashboard/doctorStyles.scss";
+@import "./layout/auth/authStyles.scss";
 @import "./layout/doctor/profileStyles.scss";
 @import "./layout/settings/settingsStyles.scss";
 
