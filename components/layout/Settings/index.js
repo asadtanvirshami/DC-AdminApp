@@ -5,10 +5,10 @@ import { useRouter } from "next/router";
 
 import { useUser } from "../User/UserProvider";
 
-import { Input, Col, Row, Divider } from "antd";
-import { Spinner } from "react-bootstrap";
+import { Col, Row, Divider } from "antd";
 import CardMD from "@/components/shared/Card/CardMd";
 import PrimaryModal from "@/components/shared/Modal";
+import ResetCredentials from "./resetCredentials";
 
 const Settings = ({ sessionData }) => {
   const { user } = useUser();
@@ -129,7 +129,7 @@ const Settings = ({ sessionData }) => {
                 </ul>
               </div>
             </Col>
-            <Divider/>
+            <Divider />
             <Col className="mt-3">
               <div className="d-flex">
                 <h3 className="">Accessibility and Authorization</h3>
@@ -162,28 +162,13 @@ const Settings = ({ sessionData }) => {
           }))
         }
       >
-        <div>
-          <h5>{state.title}</h5>
-          <div className="mt-2">
-            <p>{state.note}</p>
-            <Input
-              value={state[state.value]}
-              name={state.value}
-              onChange={(e) => onChange(e.target.value, e.target.name)}
-              size="md"
-            />
-            <button className="btn-orange-light mt-3" onClick={handleSubmit}>
-              {state.loading ? <Spinner size="sm" /> : "Save"}
-            </button>
-          </div>
-          <small
-            style={
-              state.status === "success" ? { color: "green" } : { color: "red" }
-            }
-          >
-            {state.status === "success" && state.message}
-          </small>
-        </div>
+        <React.Fragment>
+          <ResetCredentials
+            onChange={onChange}
+            handleSubmit={handleSubmit}
+            state={state}
+          />
+        </React.Fragment>
       </PrimaryModal>
     </>
   );
