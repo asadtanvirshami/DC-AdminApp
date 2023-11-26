@@ -35,16 +35,15 @@ const HeaderCom = ({ children }) => {
       href,
     };
   }
+
   const items = [
     getItem("Dashboard", "1", <BarChartOutlined />, "/dashboard"),
     getItem("Doctors", "2", <MedicineBoxOutlined />, "/doctors"),
     getItem("Users", "3", <TeamOutlined />, "/clients"),
     getItem("Clinics", "4", <ApartmentOutlined />, "/clinics"),
     getItem("Settings", "sub1", <SettingOutlined />, "/settings", [
-      getItem("Add Admin 5", "5"),
-      getItem("Profile & Security", "6"),
-      getItem("Option 7", "7"),
-      getItem("Option 8", "8"),
+      getItem("Add Admin", "5", null, "/administration"),
+      getItem("Account Settings", "6", null, "/settings"),
     ]),
   ];
 
@@ -73,20 +72,34 @@ const HeaderCom = ({ children }) => {
               <hr style={{ color: "silver" }} />
             </div>
           )}
-            <Link
-                style={{ textDecoration: "none", color: "white" }}
-                href={item.href}
-              >
-                <Menu
-                  defaultSelectedKeys={["1"]}
-                  defaultOpenKeys={["sub1"]}
-                  mode="inline"
-                  theme="dark"
-                  inlineCollapsed={collapsed}
-                  items={items}
-                />
-              </Link>
-           
+          <Menu
+            defaultOpenKeys={["sub1"]}
+            mode="inline"
+            theme="dark"
+            inlineCollapsed={collapsed}
+          >
+            {items.map((item) =>
+              item.children ? (
+                // Render a sub-menu if the item has children
+                <Menu.SubMenu
+                  key={item.key}
+                  icon={item.icon}
+                  title={item.label}
+                >
+                  {item.children.map((subItem) => (
+                    <Menu.Item key={subItem.key}>
+                      <Link className="nav-link" href={subItem.href}>{subItem.label}</Link>
+                    </Menu.Item>
+                  ))}
+                </Menu.SubMenu>
+              ) : (
+                <Menu.Item key={item.key} icon={item.icon}>
+                  <Link className="nav-link" href={item.href}>{item.label}</Link>
+                </Menu.Item>
+              )
+            )}
+          </Menu>
+
           <div
             onClick={() => {
               Cookies.remove("id");
@@ -100,7 +113,6 @@ const HeaderCom = ({ children }) => {
             {!collapsed && <span className="mx-2">Logout</span>}
           </div>
         </Sider>
-
         <Layout>
           <Content style={{ backgroundColor: "white", minHeight: "100vh" }}>
             {collapsed && (
