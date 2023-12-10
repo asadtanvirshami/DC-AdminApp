@@ -11,7 +11,7 @@ const Doctors = () => {
   const pageSize = 10;
 
   const [data, setData] = useState([]);
-  const [searchedData, setSearchData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
@@ -24,42 +24,48 @@ const Doctors = () => {
       .then((r) => {
         if (r.data.status === "success") {
           setData(r.data.result);
+          setFilteredData(r.data.result);
           setTotalPages(Math.ceil(r.data.totalItems / pageSize));
         }
         setLoading(false);
       });
   }
 
-  const deleteDoctor = (id) => {
+  const deleteDoctor = async (id) => {
     setLoading(true);
-    axios
+    await axios
       .delete(process.env.NEXT_PUBLIC_DELETE_DOCTORS, { headers: { id: id } })
       .then((r) => {
-        const newData = data?.filter((item) => item.id !== id);
-        setData(newData);
+        setFilteredData((prevFilteredData) =>
+          prevFilteredData.filter((item) => item.id !== id)
+        );
+        setData((prevFilteredData) =>
+          prevFilteredData.filter((item) => item.id !== id)
+        );
         setLoading(false);
       });
   };
 
-  const verifyDoctor = (id, status) => {
-    let approved = "0";
-    if (status === null || status === "0") {
-      approved = "1";
-    }
-    if (status === null || status === "1") {
-      approved = "0";
-    }
-    axios
+  const verifyDoctor = async (id, status) => {
+    let approved = status === null || status === "0" ? "1" : "0";
+    await axios
       .post(process.env.NEXT_PUBLIC_APPROVE_DOCTORS, {
         id: id,
         approved: approved,
       })
       .then((r) => {
         if (r.data.status === "success") {
-          let tempState = [...data];
-          let i = tempState.findIndex((item) => item.id === id);
-          tempState[i].approved = approved;
-          setData(tempState);
+          setFilteredData((prevFilteredData) =>
+            prevFilteredData.map((item) =>
+              item.id === id ? { ...item, approved: approved } : item
+            )
+          );
+
+          setData((prevData) =>
+            prevData.map((item) =>
+              item.id === id ? { ...item, approved: approved } : item
+            )
+          );
         }
       });
   };
@@ -72,7 +78,7 @@ const Doctors = () => {
           headers: { searchTerm: `${term}` },
         })
         .then((r) => {
-          setSearchData(r.data.result);
+          setFilteredData(r.data.result);
           setLoading(false);
         });
     }
@@ -89,23 +95,26 @@ const Doctors = () => {
   return (
     <div className="border rounded shadow m-5 p-5">
       <TableHeader
+        keys={["All", "Unapproved", "Approved"]}
         setSearchTerm={setSearchTerm}
-        length={data.length}
+        length={filteredData.length}
+        setData={setFilteredData}
+        data={data}
         title={"Doctors Data"}
       />
       <TableCom
         loading={loading}
         handleDelete={deleteDoctor}
         onClick={verifyDoctor}
-        pageName={'doctor'}
-        data={searchTerm.length > 2 ? searchedData : data}
+        pageName={"doctor"}
+        data={filteredData}
       />
       <TableFooter
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         totalPages={totalPages}
         pageSize={pageSize}
-        lenghtSize={data.length}
+        lenghtSize={filteredData.length}
         viewTable={true}
       />
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{memo} from "react";
 
 const TableFooter = ({
   currentPage,
@@ -86,4 +86,4 @@ const TableFooter = ({
   );
 };
 
-export default TableFooter;
+export default memo(TableFooter);

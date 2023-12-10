@@ -1,7 +1,7 @@
-import React,{memo} from "react";
+import React, { memo } from "react";
 
 import { Image } from "antd";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 
 const Profile = ({ data }) => {
   return (
@@ -27,11 +27,25 @@ const Profile = ({ data }) => {
               <p className="mx-2 mb-2">{data.DoctorId || "No doctor id"}</p>
             </li>
             <strong>Clinic Images:</strong>
-            <div className="mt-3">
-              {data.images.map((img, i) => {
-                return <Image height={100} width={100} key={i} src={img} />;
-              })}
-            </div>
+            {data.images.length > 0 ? (
+              <div className="mt-3">
+                {data.images.map((img, i) => {
+                  return (
+                    <Image
+                      className="rounded"
+                      height={100}
+                      width={100}
+                      key={i}
+                      src={img}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <div className=" m-5">
+              <Spinner />
+              </div>
+            )}
           </ul>
         </Col>
       </Row>

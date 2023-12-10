@@ -2,9 +2,10 @@ import { useState } from "react";
 
 import PrimaryModal from "../Modal";
 import { Spinner } from "react-bootstrap";
-import { Button } from "antd";
+import { Avatar, Button, Input } from "antd";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { AiOutlineUser } from "react-icons/ai";
 
 const TableCom = ({ data, handleDelete, onClick, loading, pageName }) => {
   const [state, setState] = useState({ value: "", open: false });
@@ -54,19 +55,29 @@ const TableCom = ({ data, handleDelete, onClick, loading, pageName }) => {
                           {key === "bio" ||
                           key === "address1" ||
                           key === "address" ||
-                          key === "images" ||
                           key === "image" ||
                           key === "address2" ? (
                             <td key={index}>
-                              <button
-                                className="btn-orange-special rounded"
-                                onClick={() => {
-                                  setState({
-                                    value: ele[key] || `No ${key}`,
-                                    open: true,
-                                  });
-                                }}
-                              >{`View ${key}`}</button>
+                              {key !== "image" && (
+                                <button
+                                  className="btn-orange-special rounded"
+                                  onClick={() => {
+                                    setState({
+                                      value: ele[key] || `No ${key}`,
+                                      open: true,
+                                    });
+                                  }}
+                                >{`View ${key}`}</button>
+                              )}
+                              {key === "image" && (
+                                <div key={index}>
+                                  {ele[key] ? (
+                                    <Avatar src={ele[key]} size={38} />
+                                  ) : (
+                                    <AiOutlineUser fontSize={28} />
+                                  )}
+                                </div>
+                              )}
                             </td>
                           ) : (
                             <td>

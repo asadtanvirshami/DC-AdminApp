@@ -1,12 +1,52 @@
-import React from "react";
+import React, { useState, useEffect, memo } from "react";
 
 import { Select } from "antd";
 import { HiSearch } from "react-icons/hi";
+import { HiOutlineFunnel } from "react-icons/hi2";
 
-const TableHeader = ({ length, title, setSearchTerm }) => {
-  const handleChange = (value) => {
-    console.log(`selected ${value}`);
+const TableHeader = ({ length, title, setSearchTerm, keys, data, setData }) => {
+  const [options, setOptions] = useState([]);
+
+  useEffect(() => {
+    if (keys) {
+      let newArr = [];
+      for (let index = 0; index < keys.length; index++) {
+        const key = keys[index];
+        newArr.push({
+          label: key,
+          value: keys[index],
+        });
+      }
+      if (newArr.length != 0) {
+        setOptions(newArr);
+      }
+    }
+  }, []);
+
+  const onFilter = (key) => {
+
+    let tempState = [];
+    if (key === "All") {
+      setData(data);
+    }
+    if (key === "Unapproved") {
+      data.forEach((item, i) => {
+        if (item.approved == "0") {
+          tempState.push(item);
+        }
+      });
+      setData(tempState);
+    }
+    if (key === "Approved") {
+      data.forEach((item, i) => {
+        if (item.approved == "1") {
+          tempState.push(item);
+        }
+      });
+      setData(tempState);
+    }
   };
+
   return (
     <div className="header-container ">
       <div className="appointments-count">
@@ -22,44 +62,17 @@ const TableHeader = ({ length, title, setSearchTerm }) => {
           />
           <HiSearch className="search-icon" />
         </div>
-        {/* <Select
-          defaultValue="Select name"
+        <Select
+          defaultValue="Select Value"
           style={{
             width: 120,
           }}
-          onChange={handleChange}
-          options={[
-            {
-              value: "jack",
-              label: "Jack",
-            },
-            {
-              value: "lucy",
-              label: "Lucy",
-            },
-            {
-              value: "Yiminghe",
-              label: "yiminghe",
-            },
-            {
-              value: "disabled",
-              label: "Disabled",
-              disabled: true,
-            },
-          ]}
-        /> */}
-        {/* <div className="sort-container">
-          <label >Sort By</label>
-          <select>
-            <option value="name">Sort By</option>
-            <option value="time">Time</option>
-            <option value="location">Location</option>
-          </select>
-          <FunnelPlotOutlined className="sort-icon" />
-        </div> */}
+          onChange={(e) => onFilter(e)}
+          options={options}
+        />
       </div>
     </div>
   );
 };
 
-export default TableHeader;
+export default memo(TableHeader);
